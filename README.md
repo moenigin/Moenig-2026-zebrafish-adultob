@@ -31,8 +31,50 @@ The data inside `gs://adultob-public` is stored in **Neuroglancer Precomputed** 
 
 ### Python Access via `cloud-volume`
 
-You can stream and download raw image or segmentation subcubes directly into Python using [`cloud-volume`](https://github.com/seung-lab/cloud-volume).
+You can stream and download raw image or segmentation subcubes directly into Python using [`cloud-volume`](https://github.com/seung-lab/cloud-volume). 
+Example snippet to download a central subvolume:
+```
+import numpy as np
+import matplotlib.pyplot as plt
+from cloudvolume import CloudVolume, Bbox
 
+
+EM_PATH  = "precomputed://gs://adultob-public/raw"
+SEG_PATH = "precomputed://gs://adultob-public/seg_260626_final_revision_nila"
+
+em  = CloudVolume(EM_PATH,  use_https=True, progress=True, fill_missing=True)
+seg = CloudVolume(SEG_PATH, use_https=True, progress=True, fill_missing=True)
+
+print("available mips:", em.available_mips)
+print("resolution (nm), mip 0:", em.scales[0]["resolution"])
+print("bounds (voxels), mip 0:", em.bounds)
+
+# download central subvolume
+mip = 0
+size = (256, 256, 64)  # x, y, z in voxels
+center = (em.bounds.minpt + em.bounds.maxpt) // 2
+start = center - [s // 2 for s in size]
+bbox = Bbox(start, start + size)
+
+em_crop  = em.download(bbox, mip=mip)    # shape: (x, y, z, channel)
+seg_crop = seg.download(bbox, mip=mip)
+
+# plot overlay of first crop section
+em_sl  = np.squeeze(em_crop[:, :, 0, 0])
+seg_sl = np.squeeze(seg_crop[:, :, 0])
+
+rng = np.random.default_rng(0)
+ids = np.unique(seg_sl[seg_sl > 0])
+colors = {i: rng.random(3) for i in ids}
+overlay = np.zeros((*seg_sl.shape, 4))
+for i in ids:
+    overlay[seg_sl == i] = (*colors[i], 0.5)
+
+plt.imshow(em_sl, cmap="gray")
+plt.imshow(overlay)
+plt.axis("off")
+plt.show()
+```
 ---
 
 ## 3. Selected Views
