@@ -10,8 +10,8 @@ The complete volume, segmentations, and curated states are hosted publicly in Go
 
 To complement the main manuscript, this repository provides extended supplementary documentation detailing the anatomical and morphological classifications of reconstructed neuron classes:
 
-* [**Download/View Full Neuron Class Documentation (PDF)**](./detailed_neuron_description.pdf)) 
-* [**Download Reconstructed Cells Inventory (CSV)**](./FR_neuron_information.csv) 
+* [**Download/View Full Neuron Class Documentation (PDF)**](./docs/detailed_neuron_description.pdf)) 
+* [**Download Reconstructed Cells Inventory (CSV)**](./data/neuron_information.csv) 
 ---
 
 ## 2. Dataset Overview & Cloud Volume Access
