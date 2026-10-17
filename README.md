@@ -1,6 +1,6 @@
 # Moenig-2026-zebrafish-adultob
 
-This repository serves as the digital appendix and user guide for the adult zebrafish olfactory bulb dataset associated with our [**publication**](https://www.biorxiv.org/content/10.64898/2026.07.13.738197v1). 
+This repository serves as the digital appendix and user guide for the adult zebrafish olfactory bulb dataset associated with our [**publication**](https://elifesciences.org/reviewed-preprints/112715). 
 
 The complete volume, segmentations, and curated states are hosted publicly in Google Cloud Storage at **`gs://adultob-public`**.
 
@@ -11,12 +11,15 @@ The complete volume, segmentations, and curated states are hosted publicly in Go
 To complement the main manuscript, this repository provides extended supplementary documentation detailing the anatomical and morphological classifications of reconstructed neuron classes:
 
 * [**Download/View Full Neuron Class Documentation (PDF)**](./detailed_neuron_description.pdf)) 
-* [**Download Master Reconstructed Cells Inventory (CSV)**](./FR_neuron_information.csv) 
+* [**Download Reconstructed Cells Inventory (CSV)**](./FR_neuron_information.csv) 
 ---
 
 ## 2. Dataset Overview & Cloud Volume Access
 
-The data inside `gs://adultob-public` is stored in **Neuroglancer Precomputed** format. The multi-resolution chunked files are designed for programmatic access and chunk readers.
+The data is stored in Neuroglancer precomputed format, a chunked format for large volumes. It cannot be browsed like a folder or opened directly in a web browser. There are two ways to access it:
+
+1. Interactive viewing (no installation): open one of the Neuroglancer links in the “Selected Views” section below.
+2. Programmatic access: read volumes with cloud-volume (see the code example below). No Google account or credentials are required.
 
 ### Bucket Layout
 
